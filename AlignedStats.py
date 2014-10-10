@@ -116,7 +116,7 @@ class aligned_stats(object):
       filename = self._rg_file_path + "/" + self._id + ".coverage"
       cov_file = open(filename, 'r')
       lines = cov_file.readlines()
-      self._cov_8x = (float(sum(int(line.split()[2]) for line in lines[8:])) / util.GENOME_SIZE) * 100.0
+      self._cov_8x = (float(sum(int(line.split()[2]) for line in lines[8:])) / util.GENOMES['hg19']['size']) * 100.0
     except IOError as ioe:
       print >>sys.stderr, "No coverage file: " + filename
       self._cov_8x = 0.0
@@ -134,7 +134,7 @@ class aligned_stats(object):
     try:
       '''Grab the .flagstat or .flagstats file, not the flagstat.log file'''
       flagstat_file = self._rg_file_path + os.sep + self._id + '.bam.flagstat'
-      d = util.parse_flagstats(flagstat_file)
+      d = util.flagstats(open(flagstat_file))
       self._total_reads = d['total_reads']
       self._mapped_reads = d['mapped_reads']
       self._pct_mapped = d['pct_mapped']
