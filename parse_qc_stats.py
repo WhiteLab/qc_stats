@@ -62,9 +62,9 @@ def parse_unaligned_reads(dir_path):
   for bid in TABLE:
     try:
       flagstats_file = dir_path + os.sep + bid + os.sep + bid + '.bam.flagstats'
-      stats = util.parse_flagstats(flagstats_file)
+      stats = util.flagstats(open(flagstats_file))
       TABLE[bid][HEADERS[6]] = stats['total_reads']
-      seq_depth = (stats['total_reads'] * 100.0) / util.GENOME_SIZE
+      seq_depth = (stats['total_reads'] * 100.0) / util.GENOMES['hg19']['size']
       TABLE[bid][HEADERS[12]] = "%.2f" % seq_depth
     except ValueError:
       print >>sys.stderr, "[parse_qc_stats] - Looks like flagstats file is empty: " + flagstats_file
