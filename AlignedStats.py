@@ -135,9 +135,9 @@ class aligned_stats(object):
       '''Grab the .flagstat or .flagstats file, not the flagstat.log file'''
       flagstat_file = self._rg_file_path + os.sep + self._id + '.bam.flagstat'
       d = util.flagstats(open(flagstat_file))
-      self._total_reads = d['total_reads']
-      self._mapped_reads = d['mapped_reads']
-      self._pct_mapped = d['pct_mapped']
+      self._total_reads = d['total_reads'][0]
+      self._mapped_reads = d['mapped_reads'][0]
+      self._pct_mapped = d['pct_mapped'][0]
     except (IOError, KeyError):
       print >>sys.stderr, "Unable to open/parse .flagstat file: " + flagstat_file
 

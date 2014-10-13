@@ -63,7 +63,7 @@ def parse_unaligned_reads(dir_path):
     try:
       flagstats_file = dir_path + os.sep + bid + os.sep + bid + '.bam.flagstats'
       stats = util.flagstats(open(flagstats_file))
-      TABLE[bid][HEADERS[6]] = stats['total_reads']
+      TABLE[bid][HEADERS[6]] = stats['total_reads'][0]
       seq_depth = (stats['total_reads'] * 100.0) / util.GENOMES['hg19']['size']
       TABLE[bid][HEADERS[12]] = "%.2f" % seq_depth
     except ValueError:
